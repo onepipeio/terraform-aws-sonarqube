@@ -52,7 +52,17 @@ module "ecs_fargate" {
       target_group_port = 9000
     }
   }
-  lb_https_ports = {}
+  lb_https_ports = {
+    default = {
+      listener_port     = 443
+      target_group_port = 9000
+    }
+  }
+
+  default_certificate_arn                         = var.default_certificate_arn
+  ssl_policy                                      = var.ssl_policy
+  additional_certificates_arn_for_https_listeners = var.additional_certificates_arn_for_https_listeners
+
   command = [
     "-Dsonar.search.javaAdditionalOpts=-Dnode.store.allow_mmap=false"
   ]
